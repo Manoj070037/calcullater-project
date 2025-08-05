@@ -1,55 +1,14 @@
-// Append value to result box
-function appendValue(value) {
-  document.getElementById('result').value += value;
-  playClickSound();
-  changeButtonColors();
-}
 
-// Clear the result box
-function clearResult() {
-  document.getElementById('result').value = '';
-  playClickSound();
-  changeButtonColors();
-}
+function calculate() {
+    let num1 = parseFloat(document.getElementById("num1").value);
+    let num2 = parseFloat(document.getElementById("num2").value);
+    let op = document.getElementById("operation").value;
+    let result;
 
-// Calculate and display result
-function calculateResult() {
-  let resultBox = document.getElementById('result');
-  let expression = resultBox.value;
-  try {
-    resultBox.value = eval(expression);
-    flashDisplay();
-  } catch {
-    resultBox.value = "Error";
-    flashDisplay();
-  }
-  playClickSound();
-  changeButtonColors();
-}
+    if (op === "+") result = num1 + num2;
+    else if (op === "-") result = num1 - num2;
+    else if (op === "*") result = num1 * num2;
+    else if (op === "/") result = num2 !== 0 ? num1 / num2 : "Cannot divide by 0";
 
-// Play button click sound
-function playClickSound() {
-  const sound = document.getElementById("clickSound");
-  sound.currentTime = 0;
-  sound.play();
-}
-
-// Change button colors randomly
-function changeButtonColors() {
-  let buttons = document.querySelectorAll("button");
-  buttons.forEach(button => {
-    button.style.backgroundColor = getRandomColor();
-  });
-}
-
-// Generate random color
-function getRandomColor() {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16);
-}
-
-// Flash effect on display
-function flashDisplay() {
-  let resultBox = document.getElementById("result");
-  resultBox.classList.add("flash");
-  setTimeout(() => resultBox.classList.remove("flash"), 200);
+    document.getElementById("result").innerText = "Result: " + result;
 }
